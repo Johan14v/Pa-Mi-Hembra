@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi San Valentín</title>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #000;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Satisfy', cursive;
+            color: white;
+            padding: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+            padding: 1rem;
+            margin: auto;
+        }
+
+        .text {
+            font-size: clamp(1rem, 2.5vw, 1.5rem);
+            line-height: 1.8;
+            text-align: center;
+            margin-bottom: 2rem;
+            animation: fadeIn 2s ease-out;
+            position: relative;
+            max-width: 100%;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            hyphens: auto;
+        }
+
+        .highlight {
+            color: #ff4b4b;
+            animation: pulse 2s infinite;
+            display: inline-block;
+        }
+
+        .stars {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            animation: twinkle 1s infinite alternate;
+        }
+
+        .heart {
+            position: absolute;
+            top: -50px;
+            background: var(--heart-color);
+            transform: rotate(45deg);
+            animation: fall linear infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background: var(--heart-color);
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -50%;
+        }
+
+        .music-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 10px;
+            border-radius: 50px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            max-width: 50px;
+            cursor: pointer;
+            transform: translateY(100px);
+            opacity: 0;
+            transition: all 0.5s ease;
+        }
+
+        .music-panel:hover {
+            max-width: 300px;
+        }
+
+        .music-panel p {
+            margin: 0 10px;
+            font-size: 14px;
+            white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .music-panel:hover p {
+            opacity: 1;
+        }
+
+        .music-panel button {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+        }
+
+        .music-panel button:hover {
+            transform: scale(1.1);
+        }
+
+        @media (max-width: 768px) {
+            .music-panel {
+                bottom: 10px;
+                right: 10px;
+                padding: 8px;
+            }
+
+            .music-panel p {
+                font-size: 12px;
+            }
+
+            .music-panel button {
+                font-size: 20px;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes twinkle {
+            from { opacity: 0.2; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fall {
+            to { transform: translateY(calc(100vh + 50px)) rotate(45deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 1rem;
+            }
+            .text {
+                font-size: 1rem;
+                line-height: 1.6;
+            }
+        }
+        .text-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="text-container">
+            <p class="text">
+                Quiero empezar agradeciendote por los dias que han pasado aguantandome. Eres realmente muy especial para mi, te volviste una parte tan <span class="highlight">importante en mi vida</span> que se me hace facil decir todo esto, la pena que antes me daba tener que expresarme, contigo me siento mas comodo expresandome contigo que con nadie. <br><br>
+                Eres una persona increíble, con un gran corazon y una personalidad única... Para otros puedes valer oro, pero si te vieras desde mis ojos, aunque no estemos serca y sea solo por fotos.<span class="highlight">Eres inigualable.</span> <br><br>
+                Gracias por estar en mis días difíciles y ser mi mayor alegría en los días felices. Quiero seguir pasando momentos preciosos a tu lado, seguir viendo como vas creciendo cada dia como persona, como vas desarrollando tu personalidad, seguir aprendiendo de ti y seguir amándote con la misma intensidad con la que lo hago ahora.<span class="highlight">Incluso mucho mas</span>. <br><br>
+                Feliz San Valentín mi amor. Gracias por ser tú. <span class="highlight">Gracias por ser mi todo.</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="music-panel" id="musicPanel">
+        <button id="playPauseBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polygon points="10 8 16 12 10 16 10 8"></polygon>
+            </svg>
+        </button>
+        <p id="songName">Te la dedico mi amor</p>
+    </div>
+
+    <div id="youtubePlayer">UnpsfhwqIJE</div>
+
+    <script>
+        function createStars() {
+            const starCount = Math.floor(window.innerWidth * window.innerHeight / 1000);
+            for(let i = 0; i < starCount; i++) {
+                const star = document.createElement('div');
+                star.className = 'stars';
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                document.body.appendChild(star);
+            }
+        }
+
+        // Modificar la función initHearts para reducir la cantidad de corazones
+        function initHearts() {
+            const heartCount = Math.floor(window.innerWidth / 100); // Reducido de 40 a 100
+            for(let i = 0; i < heartCount; i++) {
+                setTimeout(createHeart, i * 500); // Aumentado de 200 a 500 para espaciar más la creación
+            }
+        }
+
+        function createHeart() {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = `${Math.random() * 100}%`;
+            
+            const size = Math.random() * 20 + 10;
+            heart.style.width = `${size}px`;
+            heart.style.height = `${size}px`;
+            
+            const colors = ['#ff4b4b', '#ff758c', '#ff8fa3', '#ffb3ba', '#ffd1dc'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            heart.style.setProperty('--heart-color', color);
+            
+            heart.style.animationDuration = `${Math.random() * 3 + 2}s`;
+            heart.style.opacity = Math.random() * 0.5 + 0.5;
+            
+            document.body.appendChild(heart);
+
+            heart.addEventListener('animationiteration', () => {
+                heart.remove();
+                createHeart();
+            });
+        }
+
+        function handleResize() {
+            document.body.innerHTML = '<div class="container">' + document.querySelector('.container').innerHTML + '</div>';
+            createStars();
+            initHearts();
+        }
+
+        const playPauseBtn = document.getElementById('playPauseBtn');
+        const musicPanel = document.getElementById('musicPanel');
+
+        // Cargar la API de YouTube
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        var player;
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('youtubePlayer', {
+                height: '0',
+                width: '0',
+                videoId: 'dQw4w9WgXcQ', // Reemplaza con el ID del video de YouTube que desees
+                playerVars: {
+                    'autoplay': 1,
+                    'controls': 0,
+                    'disablekb': 1,
+                    'fs': 0,
+                    'modestbranding': 1,
+                    'rel': 0,
+                    'showinfo': 0
+                },
+                events: {
+                    'onReady': onPlayerReady,
+                    'onStateChange': onPlayerStateChange
+                }
+            });
+        }
+
+        function onPlayerReady(event) {
+            event.target.playVideo();
+        }
+
+        function onPlayerStateChange(event) {
+            if (event.data == YT.PlayerState.PLAYING) {
+                playPauseBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="10" y1="15" x2="10" y2="9"></line>
+                        <line x1="14" y1="15" x2="14" y2="9"></line>
+                    </svg>
+                `;
+            } else {
+                playPauseBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <polygon points="10 8 16 12 10 16 10 8"></polygon>
+                    </svg>
+                `;
+            }
+        }
+
+        playPauseBtn.addEventListener('click', () => {
+            if (player.getPlayerState() == YT.PlayerState.PLAYING) {
+                player.pauseVideo();
+            } else {
+                player.playVideo();
+            }
+        });
+
+
+        window.addEventListener('load', () => {
+            createStars();
+            initHearts();
+            setTimeout(() => {
+                musicPanel.style.transform = 'translateY(0)';
+                musicPanel.style.opacity = '1';
+                playPauseBtn.innerHTML = `
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="10" y1="15" x2="10" y2="9"></line>
+                        <line x1="14" y1="15" x2="14" y2="9"></line>
+                    </svg>
+                `;
+            }, 1000);
+        });
+
+        window.addEventListener('resize', handleResize);
+
+        musicPanel.addEventListener('click', (e) => {
+            if (e.target !== playPauseBtn && e.target.parentNode !== playPauseBtn) {
+                musicPanel.classList.toggle('expanded');
+            }
+        });
+    </script>
+</body>
+</html>

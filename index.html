@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Dulce Valentine</title>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: black;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+
+        .loading-screen {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: black;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .loading-content {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .loading-text {
+            font-family: 'Satisfy', cursive;
+            font-size: clamp(2rem, 8vw, 5rem);
+            color: white;
+            margin-bottom: 1rem;
+            animation: glow 2s ease-in-out infinite alternate;
+        }
+
+        .heart {
+            width: clamp(30px, 10vw, 60px);
+            height: clamp(30px, 10vw, 60px);
+            background-color: #dc2626;
+            transform: rotate(45deg);
+            animation: heartbeat 1.2s infinite;
+        }
+
+        .heart::before,
+        .heart::after {
+            content: '';
+            width: 100%;
+            height: 100%;
+            background-color: #dc2626;
+            border-radius: 50%;
+            position: absolute;
+        }
+
+        .heart::before {
+            top: -50%;
+            left: 0;
+        }
+
+        .heart::after {
+            top: 0;
+            left: -50%;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: rotate(45deg) scale(0.8); }
+            5% { transform: rotate(45deg) scale(0.9); }
+            10% { transform: rotate(45deg) scale(0.8); }
+            15% { transform: rotate(45deg) scale(1); }
+            50% { transform: rotate(45deg) scale(0.8); }
+            100% { transform: rotate(45deg) scale(0.8); }
+        }
+
+        .content {
+            display: none;
+            width: 100%;
+            max-width: 600px;
+        }
+
+        .title {
+            color: white;
+            font-size: clamp(1.5rem, 5vw, 3.5rem);
+            margin-bottom: 2rem;
+            animation: glow 2s ease-in-out infinite alternate;
+            text-shadow: 0 0 30px rgba(255, 255, 255, 0.6);
+        }
+
+        .message {
+            font-family: 'Satisfy', cursive;
+            color: #cccccc;
+            font-size: clamp(1rem, 3vw, 1.75rem);
+            margin: 0 auto 2rem auto;
+            line-height: 1.6;
+        }
+
+        .word {
+            opacity: 0;
+            display: inline-block;
+            transition: opacity 0.5s ease-in-out;
+        }
+
+        .cta-button {
+            background-color: #dc2626;
+            color: white;
+            border: none;
+            padding: 0.8rem 1.5rem;
+            font-size: clamp(0.9rem, 2.5vw, 1.125rem);
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            opacity: 0;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .cta-button:hover {
+            background-color: #b91c1c;
+            transform: scale(1.05);
+        }
+
+        @keyframes glow {
+            from { opacity: 0.8; text-shadow: 0 0 10px rgba(255, 255, 255, 0.3); }
+            to { opacity: 1; text-shadow: 0 0 20px rgba(255, 255, 255, 0.6); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loading-screen">
+        <div class="loading-content">
+            <div class="loading-text">Arianny</div>
+            <div class="heart"></div>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1 class="title">¡HOLA MI AMOR!</h1>
+        
+        <p class="message"></p>
+
+        <a href="valentine.html" class="cta-button">Continuar Leyendo</a>
+    </div>
+
+    <script>
+        const message = "Desde el primer momento en que entraste en mi vida, supe que eras especial. No solo por tu sonrisa, que ilumina mis días, ni por tu risa, que es mi sonido favorito, sino por la forma en que me haces sentir completo. Contigo, cada día es una aventura, un motivo para sonreír, y un recordatorio de lo afortunado que soy de tenerte a mi lado.";
+        const words = message.split(' ');
+        let wordIndex = 0;
+
+        function showNextWord() {
+            if (wordIndex < words.length) {
+                const wordSpan = document.createElement('span');
+                wordSpan.className = 'word';
+                wordSpan.textContent = words[wordIndex];
+                document.querySelector('.message').appendChild(wordSpan);
+                document.querySelector('.message').appendChild(document.createTextNode(' '));
+                setTimeout(() => {
+                    wordSpan.style.opacity = '1';
+                }, 50);
+                wordIndex++;
+                setTimeout(showNextWord, 200);
+            } else {
+                setTimeout(() => {
+                    document.querySelector('.cta-button').style.opacity = '1';
+                }, 500);
+            }
+        }
+
+        window.addEventListener('load', function() {
+            setTimeout(function() {
+                document.querySelector('.loading-screen').style.display = 'none';
+                document.querySelector('.content').style.display = 'block';
+                showNextWord();
+            }, 3000);
+        });
+    </script>
+</body>
+</html>
